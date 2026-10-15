@@ -1,0 +1,41 @@
+namespace DeviceRegistry.Api;
+
+public sealed record RegisterDeviceRequest(string? Name, string? SerialNumber);
+
+public static class RegistrationEndpoints
+{
+    public static void MapDeviceRegistration(this WebApplication app)
+    {
+        app.MapPost("/devices", (RegisterDeviceRequest request, DeviceStore store) =>
+        {
+            var name = request.Name?.Trim();
+            var serialNumber = request.SerialNumber?.Trim();
+            var errors = new Dictionary<string, string[]>();
+
+            if (string.IsNullOrEmpty(name) || name.Length > 80)
+            {
+                errors["name"] = ["Name must contain between 1 and 80 characters after trimming."];
+            }
+
+            if (string.IsNullOrEmpty(serialNumber) || serialNumber.Length > 64)
+            {
+                errors["serialNumber"] = ["Serial number must contain between 1 and 64 characters after trimming."];
+            }
+
+            if (errors.Count > 0)
+            {
+                return Results.ValidationProblem(errors);
+            }
+
+            var device = new Device(Guid.NewGuid(), name!, serialNumber!);
+            if (!store.TryAdd(device))
+            {
+                return Results.Problem(
+                    statusCode: StatusCodes.Status409Conflict,
+                    title: "A device with this serial number already exists.");
+            }
+
+            return Results.Created($"/devices/{device.Id}", device);
+        });
+    }
+}

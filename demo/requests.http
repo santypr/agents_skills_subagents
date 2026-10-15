@@ -1,0 +1,33 @@
+@baseUrl = http://localhost:5187
+
+GET {{baseUrl}}/health
+
+###
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+  "name": " Sensor escenario ",
+  "serialNumber": " DEMO-001 "
+}
+
+###
+GET {{baseUrl}}/devices
+
+###
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+  "name": "Duplicado",
+  "serialNumber": "demo-001"
+}
+
+###
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+  "name": " ",
+  "serialNumber": "INVALID"
+}

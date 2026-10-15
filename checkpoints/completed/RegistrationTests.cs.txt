@@ -1,0 +1,110 @@
+using System.Net;
+using System.Net.Http.Json;
+using DeviceRegistry.Api;
+using Microsoft.AspNetCore.Mvc.Testing;
+
+namespace DeviceRegistry.Api.Tests;
+
+public sealed class RegistrationTests
+{
+    [Fact]
+    public async Task Registration_trims_values_and_returns_a_retrievable_resource()
+    {
+        await using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        using var response = await client.PostAsJsonAsync("/devices",
+            new { name = " Sensor ", serialNumber = " SN-001 " });
+
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+        var device = await response.Content.ReadFromJsonAsync<Device>();
+        Assert.NotNull(device);
+        Assert.NotEqual(Guid.Empty, device.Id);
+        Assert.Equal("Sensor", device.Name);
+        Assert.Equal("SN-001", device.SerialNumber);
+        Assert.Equal($"/devices/{device.Id}", response.Headers.Location?.OriginalString);
+        Assert.Equal(device, await client.GetFromJsonAsync<Device>(response.Headers.Location));
+        Assert.Equal(device, Assert.Single((await client.GetFromJsonAsync<Device[]>("/devices"))!));
+    }
+
+    public static TheoryData<string?, string?, string> InvalidInputs => new()
+    {
+        { null, "SN-001", "name" },
+        { "", "SN-001", "name" },
+        { "   ", "SN-001", "name" },
+        { new string('n', 81), "SN-001", "name" },
+        { "Sensor", null, "serialNumber" },
+        { "Sensor", "", "serialNumber" },
+        { "Sensor", "   ", "serialNumber" },
+        { "Sensor", new string('s', 65), "serialNumber" }
+    };
+
+    [Theory]
+    [MemberData(nameof(InvalidInputs))]
+    public async Task Invalid_input_returns_validation_problem_without_inserting(
+        string? name, string? serialNumber, string field)
+    {
+        await using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        using var response = await client.PostAsJsonAsync("/devices", new { name, serialNumber });
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("application/problem+json", response.Content.Headers.ContentType?.MediaType);
+        var problem = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.Equal(400, problem.GetProperty("status").GetInt32());
+        Assert.True(problem.GetProperty("errors").TryGetProperty(field, out _));
+        Assert.Empty((await client.GetFromJsonAsync<Device[]>("/devices"))!);
+    }
+
+    [Fact]
+    public async Task Maximum_lengths_are_accepted_after_trimming()
+    {
+        await using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        using var response = await client.PostAsJsonAsync("/devices",
+            new { name = $" {new string('n', 80)} ", serialNumber = $" {new string('s', 64)} " });
+
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Duplicate_serial_is_case_insensitive_and_does_not_overwrite()
+    {
+        await using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        using var first = await client.PostAsJsonAsync("/devices",
+            new { name = "Original", serialNumber = "SN-001" });
+        Assert.Equal(HttpStatusCode.Created, first.StatusCode);
+        using var duplicate = await client.PostAsJsonAsync("/devices",
+            new { name = "Replacement", serialNumber = " sn-001 " });
+
+        Assert.Equal(HttpStatusCode.Conflict, duplicate.StatusCode);
+        Assert.Equal("application/problem+json", duplicate.Content.Headers.ContentType?.MediaType);
+        var problem = await duplicate.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.Equal(409, problem.GetProperty("status").GetInt32());
+        var stored = Assert.Single((await client.GetFromJsonAsync<Device[]>("/devices"))!);
+        Assert.Equal("Original", stored.Name);
+    }
+
+    [Fact]
+    public async Task Concurrent_registrations_create_exactly_one_device()
+    {
+        await using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var responses = await Task.WhenAll(Enumerable.Range(0, 8).Select(index =>
+            client.PostAsJsonAsync("/devices", new { name = $"Sensor {index}", serialNumber = "SAME" })));
+
+        try
+        {
+            Assert.Single(responses, response => response.StatusCode == HttpStatusCode.Created);
+            Assert.Equal(7, responses.Count(response => response.StatusCode == HttpStatusCode.Conflict));
+            Assert.Single((await client.GetFromJsonAsync<Device[]>("/devices"))!);
+        }
+        finally
+        {
+            foreach (var response in responses)
+            {
+                response.Dispose();
+            }
+        }
+    }
+}
