@@ -25,8 +25,8 @@ Hay que corregir o matizar:
 | Delegar mejora calidad o velocidad | Puede ayudar; también añade coste, latencia, errores de síntesis y conflictos. Hay que medirlo. |
 | Agentes/skills funcionan igual en todos los asistentes | El estándar de skills es compartido; rutas, extensiones, herramientas y permisos no son universales. |
 
-Las diapositivas funcionan como soporte visual del modelo mental. Véanse las
-[correcciones concretas por diapositiva](docs/slides-review.md).
+Las diapositivas validadas fijan el orden de la exposición. Véanse las
+[notas orales por diapositiva](docs/slides-review.md), sin cambios en el PowerPoint.
 
 ## 2. El modelo mental
 
@@ -170,7 +170,8 @@ Arranque, prompts, recuperación y resultados de validación:
 
 ## 6. Guion de 35–40 minutos entre dos ponentes
 
-Objetivo: 35 minutos de contenido, 3 de preguntas y hasta 2 de margen.
+Objetivo: seguir las 17 slides validadas, en su orden original, con 37 minutos
+de contenido y 3 de preguntas. No se proponen cambios en el PowerPoint.
 Se asume que las preguntas están incluidas en el tiempo total.
 Ponente A conduce el problema y el modelo mental; ponente B desarrolla
 la parte operativa y maneja el editor. Ambos intervienen en la demo.
@@ -178,20 +179,21 @@ No hacer dos minicharlas independientes ni cambiar de ordenador.
 
 | Tiempo | Bloque | Reparto | Slides |
 |---|---|---|---|
-| 0–3 | Problema, promesa y pregunta inicial | A | 1–3 |
-| 3–10 | Cuatro conceptos con un único ejemplo | A: instrucciones/agente; B: skill/subagente | 4, 5, 7, 9 |
-| 10–14 | Cómo decidir y evitar sobrearquitectura | B, con contrapunto breve de A | 11, 12 |
-| 14–27 | Demo: contrato, implementación con skill, revisión y pruebas | B opera; A interpreta y pregunta | 14 y editor |
-| 27–31 | Límites, permisos y modelo frente a harness | A y B | 15 |
-| 31–35 | Resolver la pregunta inicial y tres conclusiones | B responde; A cierra | 16, 17 |
-| 35–38 | Preguntas | Ambos | 17 |
-| 38–40 | Margen para latencia o preguntas, no contenido nuevo | Ambos | — |
+| 0–3 | Apertura, evolución y pregunta sobre seguridad de una API | A | 1–2 |
+| 3–9 | Mapa mental, instrucciones, agente y cuándo crearlo | A | 3–6 |
+| 9–15 | Skill, cuándo crearla, subagente y síntesis | B | 7–10 |
+| 15–19 | Decisión, antipatrón y tres patrones | A | 11–13 |
+| 19–32 | Demo: de la petición a la síntesis y validación | B opera; A interpreta | 14 y editor |
+| 32–34 | Gobierno y límites | A, con un matiz técnico de B | 15 |
+| 34–36 | Responder a la pregunta inicial sobre seguridad | B | 16 |
+| 36–37 | Las tres ideas finales de la slide | A | 17 |
+| 37–40 | Preguntas | Ambos | 17 |
 
-Para un límite estricto de 35 minutos: conceptos 6 minutos, decisión 3,
-y cierre 3; mantener la demo en 13. Son 32 minutos de contenido y 3 de preguntas.
-Las slides 6, 8, 10 y 13 quedan como apoyo para preguntas, no como recorrido
-obligatorio. La comparación con Claude Code es conceptual; no abrir una
-segunda herramienta en directo.
+Para un límite estricto de 35 minutos: slides 1–6 en 8 minutos, 7–10 en 5,
+11–13 en 3, demo en 11 y slides 15–17 en 5. Son 32 minutos de contenido y
+3 de preguntas, sin omitir ninguna slide.
+La comparación con Claude Code es conceptual y breve dentro del bloque de
+gobierno; no abrir una segunda herramienta en directo.
 
 La demo existente no necesita más código ni más agentes. El cambio es editorial:
 restauración y pruebas iniciales antes de salir, lanzar la implementación pronto,
@@ -199,11 +201,12 @@ mostrar solo archivos clave y usar el respaldo si se consume el presupuesto.
 El [guion a dos voces](docs/presenter-runbook.md) incluye frases de transición,
 tiempos de demo y puntos de corte.
 
-Pregunta inicial: «Para revisar el contrato de una API, ¿creamos instrucciones,
+Pregunta inicial, siguiendo las slides 2 y 16: «Para revisar la seguridad de
+una API, ¿creamos instrucciones,
 una skill, un agente o un subagente?». Respuesta: depende de si queremos expresar
 reglas, empaquetar un procedimiento, configurar un rol o delegar una ejecución.
-La seguridad puede usarse como otro ejemplo conceptual, sin simular una auditoría
-que esta demo no realiza.
+La pregunta es conceptual: la demo ilustra la delegación revisando contrato y
+pruebas, sin simular una auditoría de seguridad que no realiza.
 
 ## 7. Gobierno y límites
 

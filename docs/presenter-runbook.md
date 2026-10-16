@@ -2,158 +2,285 @@
 
 ## Formato y reparto
 
-Duración confirmada: 35–40 minutos entre dos ponentes. Propuesta: 35 de contenido,
-3 de preguntas y 2 de margen. Si el límite es 35, usar los recortes indicados abajo.
-Se asume que preguntas y transiciones están incluidas.
+Duración confirmada: 35–40 minutos entre dos ponentes. Propuesta: 37 de contenido
+y 3 de preguntas. Se asume que preguntas y transiciones están incluidas.
+Para 35 minutos se incluye una variante comprimida, sin saltar diapositivas.
+
+**Las slides validadas marcan la estructura:** se presentan las 17 en su orden
+original, sin relegar ninguna a material de respaldo. Las explicaciones siguientes
+son notas para acompañarlas, no una propuesta de cambiar el PowerPoint.
 
 Se mantienen las hipótesis técnicas: audiencia familiarizada con chat, Windows,
 .NET 10, Copilot en VS Code/Insiders, sin Docker ni Azure. El PPTX no se modifica.
 
-- **A, hilo conductor:** plantea el problema, explica el modelo mental,
-  pregunta por las decisiones y cierra.
-- **B, hilo operativo:** explica skills/delegación y opera slides/editor/terminal
-  durante la demo. Una sola máquina y sin cambios de pantalla entre equipos.
+- **A:** abre, explica instrucciones y agentes, desarrolla decisión/patrones
+  y cierra con gobierno y conclusiones.
+- **B:** explica skills y subagentes, conduce la demo y responde a la pregunta
+  inicial. Opera el editor y la terminal desde una sola máquina.
 - Durante la demo, A interpreta lo que se observa; B señala las evidencias.
   No narrar cada clic ni hablar ambos a la vez.
 - Los roles pueden intercambiarse. Ensayar las transiciones para equilibrar
   participación, no para asignar exactamente la mitad de cada minuto.
 
-## Escaleta completa
+## Escaleta completa: una entrada por slide
 
-| Reloj | Duración | Contenido | Voz principal | Apoyo |
+Los intervalos incluyen las transiciones. La slide 14 incluye el cambio al editor
+y los 13 minutos de demo; no se añaden después otros 13 minutos.
+
+| Slide | Reloj | Duración | Título / foco | Voz |
 |---|---|---|---|---|
-| 00:00–03:00 | 3 min | Problema y promesa de la charla | A | Slides 1–3 |
-| 03:00–10:00 | 7 min | Instrucciones, agente, skill, subagente | A y B | Slides 4, 5, 7, 9 |
-| 10:00–14:00 | 4 min | Decisión y antipatrón | B | Slides 11, 12 |
-| 14:00–27:00 | 13 min | Una funcionalidad de principio a fin | B opera; A interpreta | Slide 14 + editor |
-| 27:00–31:00 | 4 min | Límites, permisos, diferencias de entorno | A y B | Slide 15 |
-| 31:00–35:00 | 4 min | Respuesta inicial y conclusiones | B y A | Slides 16, 17 |
-| 35:00–38:00 | 3 min | Preguntas | Ambos | Slide 17 |
-| 38:00–40:00 | 2 min | Reserva para retrasos o más preguntas | Ambos | Sin contenido nuevo |
+| 1 | 00:00–01:00 | 1 min | Tu próximo compañero de equipo será un agente | A |
+| 2 | 01:00–03:00 | 2 min | Copilot ya no es solo autocompletado | A |
+| 3 | 03:00–04:00 | 1 min | Cuatro piezas que no son intercambiables | A |
+| 4 | 04:00–06:00 | 2 min | Instrucciones: las reglas del terreno | A |
+| 5 | 06:00–08:00 | 2 min | Agente: objetivo, decisiones y herramientas | A |
+| 6 | 08:00–09:00 | 1 min | ¿Cuándo merece existir un agente? | A |
+| 7 | 09:00–11:00 | 2 min | Skill: enseñar a Copilot cómo hacer algo bien | B |
+| 8 | 11:00–12:00 | 1 min | ¿Cuándo crear una skill? | B |
+| 9 | 12:00–14:00 | 2 min | Subagente: un especialista temporal | B |
+| 10 | 14:00–15:00 | 1 min | Una frase para recordar cada concepto | B |
+| 11 | 15:00–16:00 | 1 min | ¿Qué debería crear? | A |
+| 12 | 16:00–17:30 | 1,5 min | No construyas un ejército si basta una caja de herramientas | A |
+| 13 | 17:30–19:00 | 1,5 min | Tres arquitecturas que sí funcionan | A |
+| 14 | 19:00–32:00 | 13 min | De una petición vaga a un equipo de trabajo: demo | B opera; A interpreta |
+| 15 | 32:00–34:00 | 2 min | Cuando Copilot actúa, la seguridad deja de ser opcional | A |
+| 16 | 34:00–36:00 | 2 min | ¿Cómo revisarías la seguridad de una API? | B |
+| 17 | 36:00–37:00 | 1 min | Tres ideas para llevarte | A |
+| — | 37:00–40:00 | 3 min | Preguntas | Ambos |
 
-Las slides 6, 8, 10 y 13 son respaldo. No intentar exponer las 17 con el mismo
-peso. El presupuesto de preguntas es pequeño: aparcar debates largos al final.
+## Notas a dos voces siguiendo las slides
 
-### 00:00–03:00 — Apertura
-
-**A:**
-
-> «Ya sabemos pedirle código a un asistente. Pero cuando tiene que seguir nuestras
-> convenciones, usar herramientas y revisar el resultado, ¿qué debemos diseñar?».
-
-**A, pregunta para recuperar al final:**
-
-> «Si queremos revisar una API, ¿necesitamos instrucciones, una skill, un agente
-> o un subagente?».
-
-**B, intervención breve:**
-
-> «Hoy lo veremos con una sola API .NET: registrar un dispositivo, comprobar
-> el contrato y demostrar qué trabajo se ha delegado de verdad».
-
-### 03:00–10:00 — Cuatro conceptos, un solo ejemplo
-
-**A, instrucciones y agente:**
-
-> «Las instrucciones dicen cómo trabajamos aquí: errores, arquitectura y pruebas.
-> El agente persigue el objetivo y decide qué pasos y herramientas necesita».
-
-Ejemplo común: «Queremos registrar dispositivos». Evitar cuatro casos de negocio
-distintos y listas largas de agentes posibles.
-
-**Transición de A a B:**
-
-> «Si el procedimiento para crear endpoints se repite, ¿necesitamos otro agente?».
-
-**B, skill y subagente:**
-
-> «No necesariamente. Una skill empaqueta el procedimiento y sus recursos.
-> Si delegamos una revisión separada, entonces aparece un subagente.
-> La misma definición de agente puede utilizarse como trabajador delegado».
-
-Mostrar carga progresiva y recordar: contexto separado no equivale a disco
-aislado. Dejar permisos y diferencias entre productos para después de la demo.
-
-### 10:00–14:00 — Decidir sin sobrearquitectura
-
-**B:** recorrer el árbol con cuatro preguntas: ¿regla?, ¿capacidad reutilizable?,
-¿rol/herramientas diferentes?, ¿trabajo separable que justifica delegación?
-
-**A, contrapunto:**
-
-> «¿Y por qué no crear un agente para el DTO, otro para el handler y otro para
-> cada test?».
-
-**B:**
-
-> «Porque añadimos coordinación sin ganar aislamiento útil. Aquí basta un agente
-> que implementa con una skill y un revisor delegado que no escribe».
-
-**Transición a la demo:**
-
-> «Vamos a comprobarlo con código. No compararemos una respuesta mala preparada
-> con otra buena: mostraremos el proceso y las evidencias».
-
-### 14:00–27:00 — Demo
-
-Seguir el cronómetro de 13 minutos descrito más abajo. A pregunta por decisiones;
-B opera. La generación empieza en el minuto 16 de la charla, no después de
-explicar todos los archivos.
-
-### 27:00–31:00 — Lo que la demo no garantiza
+### Slide 1 — Tu próximo compañero de equipo será un agente
 
 **A:**
 
-> «¿Leer las instrucciones significa que ya tenemos garantías? ¿Un contexto
-> separado impide que dos agentes pisen el mismo archivo?».
+> «Hasta ahora hemos aprendido a pedirle código a un asistente. Hoy veremos cómo
+> organizar su trabajo: qué reglas darle, qué capacidades reutilizar y cuándo
+> tiene sentido delegar».
 
-**B:**
+Presentar a ambos ponentes. Prometer una explicación práctica y una sola demo
+.NET, no un catálogo de funcionalidades.
 
-> «No. Comprobamos el contrato con tests y limitamos las herramientas del revisor.
-> El contexto separado no es una sandbox. Y esta API no es un sistema de producción».
+### Slide 2 — Copilot ya no es solo autocompletado
 
-**B, comparación de aproximadamente un minuto:**
+**A:** recorrer la evolución que aparece en pantalla: predice, responde, actúa,
+se especializa y delega.
 
-> «El modelo no es el entorno de ejecución. Elegir Claude dentro de Copilot no
-> convierte la sesión en Claude Code. Las skills comparten un estándar, pero
-> configuración de agentes, herramientas y permisos dependen del harness».
+> «Al especializarse, carga instrucciones y capacidades para la tarea; no estamos
+> reentrenando el modelo. El cambio es pasar de pedir fragmentos a diseñar cómo
+> se ejecuta el trabajo».
 
-**A:** cerrar con mínimo privilegio, revisión de scripts y responsabilidad humana.
-No abrir otra herramienta ni entrar en instalación o configuración.
+Plantear la pregunta exacta de la slide:
 
-### 31:00–35:00 — Resolver y cerrar
+> «Si necesitáis revisar la seguridad de una API, ¿qué crearíais: instrucciones,
+> una skill, un agente o un subagente? Guardad vuestra respuesta para el final».
 
-**A:** recuperar la pregunta inicial sobre revisión de una API.
+No resolverla todavía: se retoma en la slide 16.
 
-**B:**
+### Slide 3 — Cuatro piezas que no son intercambiables
 
-> «Reglas de revisión: instrucciones. Procedimiento reutilizable: skill.
-> Rol con herramientas propias: agente. Ese rol ejecutado por delegación:
-> subagente. Las cuatro piezas pueden combinarse».
+**A:** presentar el mapa, sin explicar todavía cada pieza en profundidad.
 
-**A, tres conclusiones:**
+> «Reglas, capacidad, responsabilidad y delegación. Resuelven problemas distintos,
+> pero se combinan: un agente sigue instrucciones, usa una skill y puede delegar».
 
-> «Empieza por lo más simple. Separa conocimiento de responsabilidad.
-> Y comprueba el resultado: que el agente diga “terminado” no es una prueba».
+Transición: «Empezamos por las reglas del terreno».
 
-**B:** señalar el material de la demo para que la audiencia pueda repetirla.
-Pasar a preguntas sin volver a explicar definiciones.
+### Slide 4 — Instrucciones: las reglas del terreno
 
-## Qué recortar respecto al planteamiento anterior
+**A:** usar los ejemplos que ya muestra la slide: arquitectura, acceso a datos,
+pruebas de integración y Problem Details.
 
-- No cambiar el código ni añadir agentes: la demo ya contiene las piezas necesarias.
-- Reducir la demo de 20 a 13 minutos: restauración y pruebas de base antes de salir,
-  prompt pronto y solo una secuencia HTTP de éxito/conflicto si queda tiempo.
-- Evitar una ejecución A/B, una segunda demo en Claude Code y el catálogo de
-  patrones de la slide 13.
-- No escribir archivos de agentes/skills desde cero en directo: mostrar los
-  preparados y dedicar el tiempo a comprobar que se utilizan.
-- Para **35 minutos estrictos**, reducir conceptos de 7 a 6, decisión de 4 a 3
-  y cierre de 4 a 3. La demo queda en 12:00–25:00, límites en 25:00–29:00,
-  cierre en 29:00–32:00 y preguntas en 32:00–35:00.
-- Si se consume el margen, quitar peticiones HTTP opcionales, no la evidencia de
-  delegación ni el resultado de pruebas. Si la herramienta no responde, usar
-  recuperación o grabación y declarar explícitamente qué está preparado.
+> «No quiero repetir estas convenciones en cada petición. Las documento para que
+> el asistente tenga el contexto del proyecto. Las generales se aplican al
+> proyecto; otras pueden estar acotadas. Es una guía, no un control infalible».
+
+Conectar con la demo: .NET 10, almacén existente, errores coherentes y pruebas.
+No enseñar aún el editor.
+
+### Slide 5 — Agente: objetivo, decisiones y herramientas
+
+**A:** seguir las cinco etapas visibles: interpreta, planifica, actúa, observa
+y ajusta.
+
+> «Si una prueba falla, el trabajo no termina en generar código: el agente
+> observa el fallo y decide cómo continuar. Un agente personalizado configura
+> un rol y sus herramientas sobre ese entorno de ejecución».
+
+Ejemplo: entregar el registro de dispositivos comprobado, no solo escribir
+un handler.
+
+### Slide 6 — ¿Cuándo merece existir un agente?
+
+**A:** destacar criterio, responsabilidad y herramientas propias; no leer
+todos los puntos como requisitos acumulativos.
+
+> «Un rol especializado se justifica cuando aporta decisiones o límites útiles.
+> Un revisor de solo lectura también puede tener un objetivo pequeño.
+> Para una petición puntual puede bastar el agente general».
+
+**Transición a B:** «¿Y si no cambia el rol, sino la forma de hacer una tarea?».
+
+### Slide 7 — Skill: enseñar a Copilot cómo hacer algo bien
+
+**B:** recorrer la carpeta de la slide: SKILL.md y recursos opcionales.
+
+> «Aquí empaquetamos conocimiento y procedimiento. El agente carga la capacidad
+> cuando resulta relevante y consulta los recursos que necesita.
+> La skill no es otro compañero de equipo ni ejecuta sola sus scripts».
+
+Ejemplo: create-api-endpoint, con pasos, casos de prueba y validador.
+
+### Slide 8 — ¿Cuándo crear una skill?
+
+**B:** seguir las dos columnas de señales de la slide.
+
+> «Si copiamos siempre el mismo checklist o varios agentes necesitan aplicar
+> el mismo procedimiento, hay una buena candidata. Si basta una regla breve,
+> la pondría en las instrucciones; si es una petición única, empezaría por un prompt».
+
+No repetir la definición de la slide anterior: aquí se decide cuándo compensa.
+
+### Slide 9 — Subagente: un especialista temporal
+
+**B:** seguir el diagrama desde el principal hasta los trabajadores y la síntesis.
+
+> «El principal mantiene el objetivo. Delega una misión acotada y recibe un
+> resultado que debe integrar. Un agente personalizado puede ejecutarse así
+> como subagente; no necesitamos inventar otra categoría de archivo».
+
+Explicar las cuatro palabras de la slide: aislar contexto, especializar,
+paralelizar cuando conviene y sintetizar.
+
+> «Contexto separado no es disco aislado. En la demo habrá un único revisor
+> de solo lectura; no necesitamos lanzar varios trabajadores para demostrarlo».
+
+### Slide 10 — Una frase para recordar cada concepto
+
+**B:** usar esta slide como pausa de síntesis, no como una nueva explicación.
+
+> «Reglas que respetar. Procedimiento que reutilizar. Objetivo y responsabilidad.
+> Parte del trabajo que delegar».
+
+Aplicar las frases al mismo ejemplo de registro de dispositivos y pasar
+el turno a A: «Con estas diferencias, ya podemos elegir».
+
+### Slide 11 — ¿Qué debería crear?
+
+**A:** recorrer el árbol tal como está dibujado.
+
+> «¿Son reglas? Instrucciones. ¿Es un proceso reutilizable? Skill.
+> ¿Necesito un rol que decide y actúa? Agente.
+> ¿Una parte merece separarse? Delegación en un subagente».
+
+Aclarar que las opciones se combinan y que un prompt puede bastar.
+
+### Slide 12 — No construyas un ejército si basta una caja de herramientas
+
+**A:** contrastar los dos diseños de la slide, sin proponer un tercer esquema.
+
+> «Un agente para cada DTO, log o test añade coordinación. En muchos casos
+> necesitamos un implementador con buenas capacidades, no cinco roles nuevos.
+> Más agentes no implican automáticamente más calidad ni más velocidad».
+
+Reservar unos segundos para la analogía con microservicios que cierra la slide.
+
+### Slide 13 — Tres arquitecturas que sí funcionan
+
+**A:** describir los tres patrones en el orden visible, con unos 30 segundos
+por patrón:
+
+1. **Generalista + skills:** procedimientos conocidos y poca coordinación.
+2. **Orquestador + subagentes:** unidades de trabajo que sí justifican separación.
+3. **Agentes + skills compartidas:** distintos roles reutilizan el mismo conocimiento.
+
+> «No son niveles de madurez que haya que completar. Elegimos el patrón más
+> sencillo que resuelve el problema. La demo combina un implementador con una
+> skill y una revisión delegada».
+
+**Transición a B:** «Vamos a verlo sobre una API real, pero deliberadamente pequeña».
+
+### Slide 14 — De una petición vaga a un equipo de trabajo
+
+**B:** presentar las cinco etapas visibles: prompt, instrucciones, skill,
+subagentes y síntesis. Pasar al editor y seguir el cronómetro operativo de abajo.
+
+> «La slide muestra la evolución del diseño. No vamos a ejecutar cinco versiones
+> ni a forzar que el prompt simple salga mal. Veremos las piezas trabajando juntas».
+
+Auth, seguridad y tests son ejemplos de especialización en la slide. Precisar
+oralmente el alcance real:
+
+> «En esta demo la misión delegada será revisar contrato y cobertura de pruebas.
+> No implementaremos autenticación ni haremos una auditoría de seguridad».
+
+B opera; A señala las evidencias y plantea preguntas breves. Al acabar,
+regresar a la slide 15, no volver a recorrer las definiciones.
+
+### Slide 15 — Cuando Copilot actúa, la seguridad deja de ser opcional
+
+**A:** seguir los controles de la slide: mínimo privilegio, lectura frente a
+escritura, secretos, trazabilidad, revisión humana y skills externas.
+
+> «Escribir “solo lectura” no basta: hay que comprobar las herramientas reales.
+> Revisamos los scripts como código y no introducimos credenciales ni datos
+> sensibles en los ejemplos. El agente puede equivocarse y nosotros verificamos».
+
+**B, matiz breve dentro del mismo bloque:**
+
+> «Las opciones dependen del entorno: elegir un modelo Claude en Copilot no es
+> ejecutar Claude Code. El harness coordina contexto, herramientas y permisos».
+
+No abrir otra aplicación ni convertir este matiz en un bloque nuevo.
+
+### Slide 16 — ¿Cómo revisarías la seguridad de una API?
+
+**B:** recuperar expresamente la pregunta de la slide 2 y seguir las cuatro
+respuestas de esta slide.
+
+> «Instrucciones para establecer reglas. Skill para un checklist repetible.
+> Agente para un especialista con criterio y herramientas. Subagente cuando
+> el principal le delega esa revisión dentro de un trabajo mayor».
+
+> «Podemos combinarlas. La demo ha mostrado ese mecanismo con una revisión
+> de contrato, no ha demostrado que una API sea segura».
+
+Dar espacio para que A contraste la respuesta con la intuición inicial del público.
+
+### Slide 17 — Tres ideas para llevarte
+
+**A:** cerrar con las tres ideas que aparecen, sin sustituirlas por otro resumen:
+
+> «No empieces creando agentes: identifica reglas, procedimientos y responsabilidades.
+> Las skills son capacidades, no compañeros de equipo.
+> Los subagentes son una decisión de orquestación».
+
+**B:** señalar el repositorio para repetir la demo.
+**A:** pronunciar la idea final de la slide y abrir preguntas.
+
+## Variante de 35 minutos y control de tiempo
+
+Se mantiene el orden completo de las 17 slides. Reducir profundidad, no eliminar
+las slides de decisión, resumen o patrones.
+
+| Bloque | Versión de 40 min | Versión de 35 min |
+|---|---|---|
+| Slides 1–6 | 00:00–09:00 | 00:00–08:00 |
+| Slides 7–10 | 09:00–15:00 | 08:00–13:00 |
+| Slides 11–13 | 15:00–19:00 | 13:00–16:00 |
+| Slide 14 + demo | 19:00–32:00 | 16:00–27:00 |
+| Slides 15–17 | 32:00–37:00 | 27:00–32:00 |
+| Preguntas | 37:00–40:00 | 32:00–35:00 |
+
+Para comprimir: un ejemplo por concepto, una frase por criterio, 20 segundos
+por patrón y demo de 11 minutos. En esa demo, reservar 1 minuto para lanzamiento,
+4 para implementación, 3 para revisión, 2 para pruebas y 1 para síntesis.
+Las peticiones HTTP son opcionales; preparar una grabación de respaldo.
+
+La versión de 40 minutos no tiene margen adicional fuera del reloj indicado.
+Si se retrasa el agente, activar recuperación y recortar peticiones opcionales;
+no prolongar la demo a costa de omitir las slides finales.
+No escribir personalizaciones desde cero ni abrir una segunda demo en Claude Code.
 
 ## Ensayo obligatorio antes del evento
 
@@ -188,7 +315,7 @@ Esperado: **15 casos** en Completed, **3** en Starter.
 La aplicación y tests pueden funcionar sin red después de restaurar; Copilot
 no. Preparar acceso de respaldo o una grabación del ensayo.
 
-## Demo, minutos 0–2: objetivo, contexto y lanzamiento (14:00–16:00)
+## Demo, minutos 0–2: objetivo, contexto y lanzamiento (19:00–21:00)
 
 Mostrar el [contrato](device-contract.md), no la solución completa.
 Abrir Program, DeviceStore y el método vacío de RegistrationEndpoints.
@@ -218,7 +345,7 @@ Corrige solo incumplimientos demostrables y vuelve a probar si cambias código.
 Indica qué capacidades se han cargado y qué comprobaciones se han ejecutado.
 ```
 
-## Demo, minutos 2–7: implementación y lectura del flujo (16:00–21:00)
+## Demo, minutos 2–7: implementación y lectura del flujo (21:00–26:00)
 
 B muestra la actividad del agente en el editor; A explica las instrucciones
 y la skill ya preparadas sin interrumpir la ejecución. No abrir otra sesión
@@ -241,7 +368,7 @@ No exigir exactamente la implementación del checkpoint ni exactamente su númer
 de tests: pueden existir otras soluciones válidas. Sí exigir todos los casos del
 contrato, especialmente límites, error shape y concurrencia.
 
-## Demo, minutos 7–10: delegación (21:00–24:00)
+## Demo, minutos 7–10: delegación (26:00–29:00)
 
 Los tiempos son puntos de control, no pausas impuestas al agente. Si delega antes,
 mostrar la llamada cuando ocurra; no repetir la revisión solo para ajustarse al reloj.
@@ -270,7 +397,7 @@ No confundir el texto «voy a delegar» con una invocación real.
 Si no se ve la herramienta, explicar la limitación y usar revisión directa
 como respaldo, sin decir que hubo subagente.
 
-## Demo, minutos 10–12: evidencia funcional (24:00–26:00)
+## Demo, minutos 10–12: evidencia funcional (29:00–31:00)
 
 Mostrar el resultado real de pruebas del agente. Si no existe o cambió el código
 desde su ejecución, ejecutar el validador. No duplicar una ejecución vigente
@@ -315,7 +442,7 @@ la función anterior los decodifica sin confundirlos con el cuerpo JSON.
 Las peticiones con la misma serie son intencionadamente duplicadas. Reiniciar
 el proceso vacía el almacén para repetir la secuencia.
 
-## Demo, minutos 12–13: síntesis y transición (26:00–27:00)
+## Demo, minutos 12–13: síntesis y transición (31:00–32:00)
 
 Recapitular:
 

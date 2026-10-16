@@ -1,7 +1,8 @@
 # Demo: agentes, skills y subagentes con .NET
 
 Material para una charla de 35–40 minutos entre dos ponentes, con 13 minutos
-de demo. El guion propone 35 minutos de contenido, 3 de preguntas y 2 de margen.
+de demo. El guion sigue las 17 slides validadas en orden: 37 minutos de contenido
+y 3 de preguntas, con una variante de 35 minutos sin omitir slides.
 La aplicación es deliberadamente pequeña: lo importante es observar el flujo
 de trabajo del asistente, no construir una plataforma.
 
@@ -11,7 +12,7 @@ de trabajo del asistente, no construir una plataforma.
 - [Agentes, skills y subagentes: definiciones y cuándo utilizarlos](docs/agentes-skills-subagentes.md).
 - [Guía revisada y fuentes](guide.md).
 - [Guion, prompts y recuperación](docs/presenter-runbook.md).
-- [Correcciones de las slides](docs/slides-review.md).
+- [Notas de acompañamiento de las slides validadas](docs/slides-review.md).
 - [Contrato funcional](docs/device-contract.md).
 
 ## Requisitos
