@@ -7,6 +7,7 @@ de trabajo del asistente, no construir una plataforma.
 
 ## Empieza aquí
 
+- [Demo paso a paso: comandos, efectos y recuperación](docs/demo-paso-a-paso.md).
 - [Agentes, skills y subagentes: definiciones y cuándo utilizarlos](docs/agentes-skills-subagentes.md).
 - [Guía revisada y fuentes](guide.md).
 - [Guion, prompts y recuperación](docs/presenter-runbook.md).
