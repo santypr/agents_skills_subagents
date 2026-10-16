@@ -7,6 +7,7 @@ de trabajo del asistente, no construir una plataforma.
 
 ## Empieza aquí
 
+- [Agentes, skills y subagentes: definiciones y cuándo utilizarlos](docs/agentes-skills-subagentes.md).
 - [Guía revisada y fuentes](guide.md).
 - [Guion, prompts y recuperación](docs/presenter-runbook.md).
 - [Correcciones de las slides](docs/slides-review.md).
